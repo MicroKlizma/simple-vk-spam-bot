@@ -1,0 +1,21 @@
+.button {
+    -fx-background-color:  #5780b3;
+    -fx-font-family: Tahoma;
+    -fx-font-weight: Bold;
+    -fx-background-radius: 10 0 0 10;
+    -fx-font-size: 19;
+}
+
+.button:focused {
+    -fx-font-size: 19;
+}
+
+.button:pressed {
+    -fx-font-size: 19;
+}
+
+.button:hover {
+   -fx-font-size: 19;
+   -fx-background-color: #6d96c9;
+   -fx-cursor: hand;
+}

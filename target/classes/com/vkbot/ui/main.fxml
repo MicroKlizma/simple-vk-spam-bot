@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="450.0" minWidth="800.0" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #F7F7F7;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vkbot.controllers.LoginController">
+   <children>
+      <BorderPane fx:id="borderPane" maxHeight="450.0" maxWidth="800.0" minHeight="450.0" minWidth="800.0" prefHeight="450.0" prefWidth="800.0">
+         <top>
+            <Pane prefHeight="50.0" prefWidth="800.0" style="-fx-background-color: #44658C; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="355.0" layoutY="8.0" prefHeight="35.0" prefWidth="90.0" style="-fx-font-family: Tahoma; -fx-font-weight: bold;" text="VK BOT" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </top>
+         <left>
+            <Pane fx:id="loginPane" prefHeight="400.0" prefWidth="300.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0); -fx-background-color: #FFFFFF;" visible="false" BorderPane.alignment="CENTER">
+               <children>
+                  <Label contentDisplay="CENTER" layoutX="65.0" layoutY="17.0" prefHeight="40.0" prefWidth="171.0" text="Войдите в аккаунт">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="email" focusTraversable="false" layoutX="45.0" layoutY="70.0" prefHeight="42.0" prefWidth="211.0" promptText="Телефон или email" styleClass="text-field" stylesheets="@../styles/textfield.css">
+                     <font>
+                        <Font name="Lucida Bright" size="18.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="pass" focusTraversable="false" layoutX="45.0" layoutY="126.0" prefHeight="42.0" prefWidth="211.0" promptText="Пароль" styleClass="passwordfield" stylesheets="@../styles/passfield.css">
+                     <font>
+                        <Font name="Lucida Bright" size="18.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="authWithLoginButton" focusTraversable="false" layoutX="83.0" layoutY="188.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#action" prefHeight="36.0" prefWidth="96.0" stylesheets="@../styles/button.css" text="Войти" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow height="3.44" radius="1.2974999999999999" width="3.75" />
+                     </effect>
+                  </Button>
+                  <Button fx:id="tokenButton" focusTraversable="false" graphicTextGap="0.0" layoutX="182.0" layoutY="188.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setTokenPane" prefHeight="36.0" prefWidth="36.0" styleClass="key-button" stylesheets="@../styles/tokenButton.css" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                  <Label fx:id="infoLabel" contentDisplay="CENTER" layoutX="60.0" layoutY="225.0" prefHeight="40.0" prefWidth="186.0" style="-fx-font-family: Lucida;" text="Неверный логин или пароль" textFill="RED">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="captcha" fitHeight="63.0" fitWidth="160.0" layoutX="70.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../temp/captcha.jpg" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="captchaKey" focusTraversable="false" layoutX="47.0" layoutY="348.0" prefHeight="37.0" prefWidth="211.0" promptText="Введите капчу" styleClass="text-field" stylesheets="@../styles/textfield.css">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </Pane>
+         </left>
+         <center>
+            <Pane fx:id="description" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" visible="false" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="14.0" layoutY="22.0" prefHeight="35.0" prefWidth="218.0" styleClass="-" text="Что can этот бот?">
+                     <font>
+                        <Font name="Georgia" size="25.0" />
+                     </font>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color opacity="0.0" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="57.0" prefHeight="35.0" prefWidth="271.0" styleClass="-" text="Вы можете....">
+                     <font>
+                        <Font name="Verdana" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+      <Pane fx:id="tokenPane" layoutY="50.0" prefHeight="400.0" prefWidth="300.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0); -fx-background-color: #FFFFFF;">
+         <children>
+            <Label contentDisplay="CENTER" layoutX="84.0" layoutY="54.0" prefHeight="40.0" prefWidth="135.0" text="Введите токен">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="token" focusTraversable="false" layoutX="46.0" layoutY="107.0" prefHeight="42.0" prefWidth="211.0" promptText="Ваш токен" styleClass="text-field" stylesheets="@../styles/textfield.css">
+               <font>
+                  <Font name="Lucida Bright" size="18.0" />
+               </font>
+            </TextField>
+            <Button fx:id="authWithTokenButton" focusTraversable="false" layoutX="84.0" layoutY="176.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#authWithToken" prefHeight="36.0" prefWidth="96.0" stylesheets="@../styles/button.css" text="Войти" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <effect>
+                  <DropShadow height="3.44" radius="1.2974999999999999" width="3.75" />
+               </effect>
+            </Button>
+            <Button fx:id="backButton" focusTraversable="false" graphicTextGap="0.0" layoutX="183.0" layoutY="176.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goBack" prefHeight="36.0" prefWidth="36.0" styleClass="key-button" stylesheets="@../styles/tokenButton.css" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Label fx:id="information1" contentDisplay="CENTER" layoutX="80.0" layoutY="223.0" prefHeight="40.0" prefWidth="144.0" style="-fx-font-family: Lucida;" text="Неправильный токен" textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="tokenDescription" layoutX="300.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0">
+         <children>
+            <Label layoutX="14.0" layoutY="22.0" prefHeight="35.0" prefWidth="300.0" styleClass="-" text="Как получить токен?">
+               <font>
+                  <Font name="Georgia" size="25.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color opacity="0.0" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+            <Label layoutX="14.0" layoutY="57.0" prefHeight="35.0" prefWidth="365.0" styleClass="-" text="https://vkhost.github.io/">
+               <font>
+                  <Font name="Verdana" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

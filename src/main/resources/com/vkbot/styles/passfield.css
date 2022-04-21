@@ -1,0 +1,14 @@
+.passwordfield {
+    -fx-font-family: Lucida Grande;
+    -fx-font-size: 16;
+    -fx-background-color: #FCFCFC;
+    -fx-border-color: #C6C6C6;
+    -fx-border-radius: 5;
+}
+.passwordfield:focused {
+    -fx-font-family: Lucida Grande;
+    -fx-font-size: 16;
+    -fx-background-color: #FCFCFC;
+    -fx-border-color: #C6C6C6;
+    -fx-border-radius: 5;
+}
