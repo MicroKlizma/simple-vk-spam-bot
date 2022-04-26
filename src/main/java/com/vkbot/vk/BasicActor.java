@@ -15,10 +15,13 @@ import com.vk.api.sdk.objects.messages.responses.GetLongPollHistoryResponse;
 import com.vk.api.sdk.objects.users.Fields;
 import com.vk.api.sdk.objects.users.responses.GetResponse;
 import com.vk.api.sdk.queries.messages.MessagesGetConversationsByIdQuery;
+import com.vkbot.httpclient.Client;
 import com.vkbot.observer.Observable;
 import com.vkbot.observer.Observer;
 import com.vkbot.vk.longpoll.UserLongPollApi;
 
+import java.io.InputStream;
+import java.net.URI;
 import java.util.*;
 
 
@@ -241,6 +244,25 @@ public class BasicActor implements Observable {
     }
 
 
+    public void getUserImages(List<String> fromIds, ConversationWithMessages conversation) {
+        try {
+            List<GetResponse> responses = vkClient.users().get(actor).userIds(fromIds).fields(Fields.PHOTO_50).execute();
+            for (GetResponse response : responses) {
+                Client client = Client.getInstance();
+                byte[] imageBytes = client.doGet(response.getPhoto50().toString()).getInputStream().readAllBytes();
+
+                for (String s : fromIds) {
+                    int fromId = Integer.parseInt(s);
+                    Member member = new Member(fromId);
+                    member.setImage(imageBytes);
+                    conversation.addMember(fromId, member);
+                }
+            }
+        } catch (ApiException | ClientException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public Map<Integer, ConversationWithMessages> getConversations() {
         return conversations;

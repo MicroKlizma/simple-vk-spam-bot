@@ -34,7 +34,7 @@ public class Kek extends Application {
         UserActor actor = new UserActor(258252603, "e97a6cd5d7d7d2a16c4721a41bbff1f0c6861ed00721debab0b93ee8f2eac2144cc04345efb833b989a86");
         GetLongPollServerResponse response = vk.messages().getLongPollServer(actor).execute();
         String url = "https://" + response.getServer() + "?act=a_check&key=" + response.getKey() + "&mode=10&ts=" + response.getTs() + "&version=14&wait=50";
-        Client c = new Client();
+        Client c = Client.getInstance();
         Response resp = c.doGet(url);
 
 //        launch();

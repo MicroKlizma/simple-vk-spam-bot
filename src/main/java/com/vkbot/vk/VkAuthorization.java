@@ -17,7 +17,7 @@ public class VkAuthorization {
     private String loginLink;
 
     public VkAuthorization() {
-        client = new Client();
+        client = Client.getInstance();
     }
 
      /*

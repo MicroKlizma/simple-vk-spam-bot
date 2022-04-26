@@ -1,6 +1,7 @@
 module com.vkbot {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.web;
     requires org.apache.httpcomponents.httpclient;
     requires org.apache.httpcomponents.httpcore;
     requires java.sql;

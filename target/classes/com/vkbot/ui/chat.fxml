@@ -48,9 +48,9 @@
             </Pane>
          </left>
          <center>
-            <ScrollPane prefHeight="400.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="messagesScrollPane" prefHeight="400.0" prefWidth="500.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="messageList" prefHeight="399.0" prefWidth="485.0" />
+                  <VBox fx:id="messageList" prefWidth="485.0" />
                </content>
             </ScrollPane>
          </center>

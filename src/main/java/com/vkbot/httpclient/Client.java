@@ -23,9 +23,10 @@ public class Client {
 
     private final CloseableHttpClient httpclient;
     private final HttpClientContext context;
+    private static Client client;
 
 
-    public Client() {
+    private Client() {
         httpclient = HttpClients.custom().
                 setDefaultRequestConfig(RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build()).
                 build();
@@ -33,7 +34,12 @@ public class Client {
         context = HttpClientContext.create();
     }
 
-
+    public static Client getInstance() {
+        if (client == null) {
+            client = new Client();
+        }
+        return client;
+    }
     public Response doGet(String URI) {
         if (URI == null) return null;
         final HttpGet httpGet = new HttpGet(URI);
