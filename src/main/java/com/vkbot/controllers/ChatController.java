@@ -15,19 +15,14 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ChatController implements Initializable, Observer {
 
@@ -47,8 +42,8 @@ public class ChatController implements Initializable, Observer {
     }
 
 
-    private void displayMessages(ConversationWithMessages conversation) {
-        List<String> members = new ArrayList<>();
+    private void displayMessagesInConversation(ConversationWithMessages conversation) {
+        Set<String> members = new HashSet<>();
 
         for (Message message : conversation.getMessages()) {
             int fromId = message.getFromId();
@@ -64,24 +59,9 @@ public class ChatController implements Initializable, Observer {
                 }
             }
         }
-        actor.getUserImages(members, conversation);
+        actor.setMembersImages(members, conversation);
 
         for (Message message : conversation.getMessages()) {
-
-
-//            textArea.setWrapText(true);
-//            System.out.println(textArea.);
-//            ScrollBar scrollBar = new ScrollBar();
-//            scrollBar = (ScrollBar) textArea.lookup(".scroll-bar:vertical");
-//            scrollBar.setDisable(true);
-//            WebView webView = new WebView();
-//            WebEngine webEngine = webView.getEngine();
-//            webEngine.loadContent("<body style='background : rgba(0,0,0,0);font-size: 70px;padding: 10;attachType-align:center;'>Test Transparent</body>");
-//            webView.setStyle("-fx-background-color: red");
-//            webView.setPrefHeight(100);
-//            TextArea
-//            messageList.getChildren().add(0, webView);
-
             AnchorPane messagePane = new AnchorPane();
             messagePane.setMinHeight(40);
 
@@ -122,38 +102,37 @@ public class ChatController implements Initializable, Observer {
                             break;
                     }
                 }
-
-
-                //todo reply and forwarded
-
-                if (!attachType.toString().equals("")) {
-                    attachType.append(" ");
-                }
-                Label messageText = new Label(attachType + message.getText());
-
-                messageText.setWrapText(true);
-
-                //add user image to message pane
-                ByteArrayInputStream inputStream = new ByteArrayInputStream(conversation.getMember(message.getFromId()).getImageBytes());
-                Image image = new Image(inputStream);
-                Circle userImage = new Circle(18);
-                ImagePattern pattern = new ImagePattern(image);
-                userImage.setFill(pattern);
-
-
-                messagePane.getChildren().add(messageText);
-                messagePane.getChildren().add(userImage);
-
-                AnchorPane.setLeftAnchor(messageText, 60.0);
-                AnchorPane.setTopAnchor(messageText, 19.0);
-
-                AnchorPane.setLeftAnchor(userImage, 10.0);
-                AnchorPane.setTopAnchor(userImage, 10.0);
-
-                messageList.getChildren().add(0, messagePane);
             }
-        }
 
+            //todo reply and forwarded
+
+            if (!attachType.toString().equals("")) {
+                attachType.append(" ");
+            }
+            Label messageText = new Label(attachType + message.getText());
+
+            messageText.setWrapText(true);
+
+            //add user image to message pane
+            ByteArrayInputStream inputStream = new ByteArrayInputStream( conversation.getMember(message.getFromId()).getImageBytes() );
+            Image image = new Image(inputStream);
+            Circle userImage = new Circle(18);
+            ImagePattern pattern = new ImagePattern(image);
+            userImage.setFill(pattern);
+
+
+            messagePane.getChildren().add(messageText);
+            messagePane.getChildren().add(userImage);
+
+            AnchorPane.setLeftAnchor(messageText, 60.0);
+            AnchorPane.setTopAnchor(messageText, 19.0);
+
+            AnchorPane.setLeftAnchor(userImage, 10.0);
+            AnchorPane.setTopAnchor(userImage, 10.0);
+
+            messageList.getChildren().add(0, messagePane);
+
+        }
 
     }
 
@@ -161,7 +140,7 @@ public class ChatController implements Initializable, Observer {
         messageList.getChildren().clear();
         AnchorPane anchorPane = (AnchorPane) event.getSource();
         currentConversation = (ConversationWithMessages) anchorPane.getUserData();
-        displayMessages(currentConversation);
+        displayMessagesInConversation(currentConversation);
 
         Platform.runLater( () -> messagesScrollPane.setVvalue(1) );
 
@@ -171,7 +150,7 @@ public class ChatController implements Initializable, Observer {
     //todo token expired add attachements ?!
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        actor = BasicActor.getInstance(258252603, "d8c6ed1849d02d9b504cfaa5906c4b796f05bdbf05a6bd7579f7576f3807e37bc02d10380f0375725bcc6");
+        actor = BasicActor.getInstance(258252603, "866e22310a6a007c68253e23e44769462b9cf52df6756836291f569679fe84b3782578a09d3ff8299b675");
         List<ConversationWithMessages> bc = actor.getSortedConversations();
         for (ConversationWithMessages conv : bc) {
             addConversationToConversationsList(conv);
@@ -224,7 +203,7 @@ public class ChatController implements Initializable, Observer {
         Platform.runLater( () -> messageList.getChildren().clear() );
 
         if (currentConversation != null) {
-            Platform.runLater( () -> displayMessages(currentConversation));
+            Platform.runLater( () -> displayMessagesInConversation(currentConversation));
         }
 
         Platform.runLater( () -> messagesScrollPane.setVvalue(1) );

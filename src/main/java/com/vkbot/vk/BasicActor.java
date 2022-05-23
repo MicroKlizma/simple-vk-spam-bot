@@ -243,21 +243,23 @@ public class BasicActor implements Observable {
 
     }
 
-
-    public void getUserImages(List<String> fromIds, ConversationWithMessages conversation) {
+    public void setMembersImages(Set<String> fromIds, ConversationWithMessages conversation) {
         try {
-            List<GetResponse> responses = vkClient.users().get(actor).userIds(fromIds).fields(Fields.PHOTO_50).execute();
-            for (GetResponse response : responses) {
-                Client client = Client.getInstance();
-                byte[] imageBytes = client.doGet(response.getPhoto50().toString()).getInputStream().readAllBytes();
+            Client client = Client.getInstance();
+            List<String> listedFromIds = new ArrayList<>(fromIds);
+            List<GetResponse> responses = vkClient.users().get(actor).userIds(listedFromIds).fields(Fields.PHOTO_50).execute();
 
-                for (String s : fromIds) {
-                    int fromId = Integer.parseInt(s);
-                    Member member = new Member(fromId);
-                    member.setImage(imageBytes);
-                    conversation.addMember(fromId, member);
-                }
+
+            for (int i = 0; i < listedFromIds.size(); i++) {
+                GetResponse response = responses.get(i);
+                byte[] imageBytes = client.doGet(response.getPhoto50().toString()).getInputStream().readAllBytes();
+                int fromId = Integer.parseInt(listedFromIds.get(i));
+
+                Member member = new Member(fromId);
+                member.setImage(imageBytes);
+                conversation.addMember(fromId, member);
             }
+
         } catch (ApiException | ClientException e) {
             e.printStackTrace();
         }
